@@ -21,4 +21,12 @@ module.exports = {
     const users = await User.findAll({ attributes: { exclude: ['password'] } });
     return users;
   },
+
+  async getById(id) {
+    const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
+    if (!user) {
+      throw util.generateError(404, 'User does not exist');
+    }
+    return user;
+  },
 };

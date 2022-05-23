@@ -19,4 +19,14 @@ module.exports = {
       next(error);
     }
   },
+
+  async getById(req, res, next) {
+    const { id } = req.params;
+    try {
+      const user = await service.user.getById(id);
+      return res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  },
 };
