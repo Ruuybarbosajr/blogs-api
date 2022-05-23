@@ -4,9 +4,9 @@ const util = require('../utils');
 module.exports = {
   async create(newUser) {
     const user = await User.findOne({ where: { email: newUser.email } });
-
+    
     if (user) {
-      throw util.generateError('User already registered', 409);
+      throw util.generateError(409, 'User already registered');
     }
 
     const createdUser = await User.create(newUser);
