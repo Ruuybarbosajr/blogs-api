@@ -1,20 +1,24 @@
 const { User } = require('../database/models');
-const generateToken = require('../utils/generateToken');
+const util = require('../utils');
 
 module.exports = {
   async create(newUser) {
     const user = await User.findOne({ where: { email: newUser.email } });
 
     if (user) {
-      const error = { status: 409, message: 'User already registered' };
-      throw error;
+      throw util.generateError('User already registered', 409);
     }
 
     const createdUser = await User.create(newUser);
     delete createdUser.dataValues.password;
     const payload = createdUser.dataValues;
 
-    const token = generateToken(payload);
+    const token = util.generateToken(payload);
     return token;
   },
-}; 
+
+  async getAll() {
+    const users = await User.findAll({ attributes: { exclude: ['password'] } });
+    return users;
+  },
+};
