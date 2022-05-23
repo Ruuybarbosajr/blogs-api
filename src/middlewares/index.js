@@ -1,7 +1,9 @@
 const error = require('./error.middleware');
-const authBody = require('./auth.body');
+const authBodySignIn = require('./auth.bodySignIn');
+const authBodyCreate = require('./auth.bodyCreate');
 
 module.exports = {
   error,
-  authBody,
+  authBodySignIn,
+  authBodyCreate,
 };
