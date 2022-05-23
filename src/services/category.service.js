@@ -8,4 +8,9 @@ module.exports = {
       name,
     };
   },
+
+  async getAll() {
+    const categories = await Category.findAll();
+    return categories;
+  },
 };

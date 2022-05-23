@@ -10,4 +10,13 @@ module.exports = {
       next(error);
     }
   },
+
+  async getAll(_req, res, next) {
+    try {
+      const categories = await service.category.getAll();
+      return res.status(200).json(categories);
+    } catch (error) {
+      next(error);
+    }
+  },
 };
