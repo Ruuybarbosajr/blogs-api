@@ -50,4 +50,24 @@ module.exports = {
       categories: post.categories,
     };
   },
+
+  async update(updatedPost, ids) {
+    const post = await BlogPost.findByPk(ids.postId);
+
+    if (post.userId !== ids.userId) throw util.generateError(401, 'Unauthorized user');
+
+    await BlogPost.update(
+      { title: updatedPost.title, content: updatedPost.content },
+      { where: { id: ids.postId, userId: ids.userId } },
+    );
+    
+    const update = await BlogPost.findByPk(ids.postId, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+    });
+
+    return update;
+  },
 };

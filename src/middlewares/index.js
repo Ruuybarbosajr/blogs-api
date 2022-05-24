@@ -4,6 +4,7 @@ const bodyUser = require('./auth.user.body');
 const token = require('./auth.token');
 const bodyCategory = require('./auth.category.body');
 const bodyBlogPost = require('./auth.blogPost.body');
+const bodyBlogPostUpdate = require('./auth.blogPostUpdate.body');
 
 module.exports = {
   error,
@@ -13,5 +14,6 @@ module.exports = {
     token,
     bodyCategory,
     bodyBlogPost,
+    bodyBlogPostUpdate,
   },
 };

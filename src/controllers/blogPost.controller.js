@@ -30,4 +30,18 @@ module.exports = {
       next(error);
     }
   },
+
+  async update(req, res, next) {
+    const { title, content } = req.body;
+    const { id } = req.params;
+    try {
+      const updated = await service.blogPost.update(
+        { title, content },
+        { userId: req.user.id, postId: id },
+      );
+      return res.status(200).json(updated);
+    } catch (error) {
+      next(error);
+    }
+  },
 };
