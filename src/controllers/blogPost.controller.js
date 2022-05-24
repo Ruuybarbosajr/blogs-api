@@ -20,4 +20,14 @@ module.exports = {
       next(error);
     }
   },
+
+  async getById(req, res, next) {
+    const { id } = req.params;
+    try {
+      const post = await service.blogPost.getById(id);
+      return res.status(200).json(post);
+    } catch (error) {
+      next(error);
+    }
+  },
 };

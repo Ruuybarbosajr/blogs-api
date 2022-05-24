@@ -11,4 +11,6 @@ router.post(
 
 router.get('/', middleware.auth.token, controller.blogPost.getAll);
 
+router.get('/:id', middleware.auth.token, controller.blogPost.getById);
+
 module.exports = router;

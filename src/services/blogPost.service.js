@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const { BlogPost, User, Category } = require('../database/models');
 const config = require('../database/config/config');
+const util = require('../utils');
 
 const sequelize = new Sequelize(config.development);
 
@@ -33,5 +34,20 @@ module.exports = {
       ],
     });
     return posts;
-  }, 
+  },
+
+  async getById(id) {
+    const post = await BlogPost.findByPk(id);
+
+    if (!post) throw util.generateError(404, 'Post does not exist');
+  
+    post.user = await post.getUser({ attributes: { exclude: ['password'] } });
+    post.categories = await post.getCategories();
+
+    return { 
+      ...post.dataValues,
+      user: post.user,
+      categories: post.categories,
+    };
+  },
 };
