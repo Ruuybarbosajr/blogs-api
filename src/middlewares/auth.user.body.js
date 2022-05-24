@@ -1,4 +1,5 @@
 const joi = require('joi');
+const util = require('../utils');
 
 const schema = joi.object({
   displayName: joi.string().required().min(8),
@@ -10,6 +11,6 @@ const schema = joi.object({
 module.exports = (req, _res, next) => {
   const { displayName, email, password, image } = req.body;
   const { error } = schema.validate({ displayName, email, password, image });
-  if (error) next({ status: 400, message: error.message });
+  if (error) next(util.generateError(400, error.message));
   next();
 };

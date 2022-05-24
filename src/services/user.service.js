@@ -10,6 +10,7 @@ module.exports = {
     }
 
     const createdUser = await User.create(newUser);
+    console.log(createdUser);
     delete createdUser.dataValues.password;
     const payload = createdUser.dataValues;
 
