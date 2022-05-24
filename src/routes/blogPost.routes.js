@@ -9,4 +9,6 @@ router.post(
   controller.blogPost.create,
 );
 
+router.get('/', middleware.auth.token, controller.blogPost.getAll);
+
 module.exports = router;

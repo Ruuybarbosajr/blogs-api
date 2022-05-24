@@ -11,4 +11,13 @@ module.exports = {
       next(util.generateError(400, '"categoryIds" not found'));
     }
   },
+
+  async getAll(_req, res, next) {
+    try {
+      const posts = await service.blogPost.getAll();
+      return res.status(200).json(posts);
+    } catch (error) {
+      next(error);
+    }
+  },
 };
