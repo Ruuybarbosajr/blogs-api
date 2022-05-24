@@ -14,6 +14,8 @@ app.use('/user', router.user);
 
 app.use('/categories', router.category);
 
+app.use('/post', router.blogPost);
+
 app.use(middleware.error);
 
 // ...
