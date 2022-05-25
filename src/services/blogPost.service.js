@@ -7,7 +7,6 @@ const sequelize = new Sequelize(config.development);
 
 module.exports = {
   async create(newPost, user) {
-    console.log(newPost, user);
     const created = await sequelize.transaction(async (transaction) => {
       const post = await BlogPost.create(
         {
@@ -69,5 +68,14 @@ module.exports = {
     });
 
     return update;
+  },
+
+  async delete(id, user) {
+    const post = await BlogPost.findByPk(id);
+    
+    if (!post) throw util.generateError(404, 'Post does not exist');
+    if (post.userId !== user.id) throw util.generateError(401, 'Unauthorized user');
+
+    await BlogPost.destroy({ where: { id, userId: user.id } });
   },
 };

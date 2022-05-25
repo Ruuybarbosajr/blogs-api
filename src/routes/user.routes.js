@@ -4,7 +4,7 @@ const controller = require('../controllers');
 
 router.post(
   '/',
-  middleware.auth.bodyUser,
+  middleware.auth.bodyUserCreate,
   controller.user.create,
 );
 

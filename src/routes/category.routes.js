@@ -5,7 +5,7 @@ const controller = require('../controllers');
 router.post(
   '/',
   middleware.auth.token,
-  middleware.auth.bodyCategory,
+  middleware.auth.bodyCategoryCreate,
   controller.category.create,
 );
 

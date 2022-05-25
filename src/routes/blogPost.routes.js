@@ -5,7 +5,7 @@ const controller = require('../controllers');
 router.post(
   '/',
   middleware.auth.token,
-  middleware.auth.bodyBlogPost,
+  middleware.auth.bodyBlogPostCreate,
   controller.blogPost.create,
 );
 
@@ -19,5 +19,7 @@ router.put(
   middleware.auth.bodyBlogPostUpdate,
   controller.blogPost.update,
 );
+
+router.delete('/:id', middleware.auth.token, controller.blogPost.delete);
 
 module.exports = router;

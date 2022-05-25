@@ -44,4 +44,14 @@ module.exports = {
       next(error);
     }
   },
+
+  async delete(req, res, next) {
+    const { id } = req.params;
+    try {
+      await service.blogPost.delete(id, req.user);
+      return res.status(204).end();
+    } catch (error) {
+      next(error);
+    }
+  },
 };
