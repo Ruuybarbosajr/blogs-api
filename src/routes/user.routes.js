@@ -20,4 +20,6 @@ router.get(
   controller.user.getById,
 );
 
+router.delete('/me', middleware.auth.token, controller.user.delete);
+
 module.exports = router;

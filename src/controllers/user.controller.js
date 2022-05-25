@@ -29,4 +29,13 @@ module.exports = {
       next(error);
     }
   },
+
+  async delete(req, res, next) {
+    try {
+      await service.user.delete(req.user.id);
+      return res.status(204).end();
+    } catch (error) {
+      next(error);
+    }
+  },
 };

@@ -30,4 +30,6 @@ module.exports = {
     }
     return user;
   },
+
+  async delete(id) { await User.destroy({ where: { id } }); },
 };
