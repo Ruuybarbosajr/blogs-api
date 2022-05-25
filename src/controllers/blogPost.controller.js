@@ -54,4 +54,14 @@ module.exports = {
       next(error);
     }
   },
+
+  async search(req, res, next) {
+    const { q: search } = req.query;
+    try {
+      const posts = await service.blogPost.search(search);
+      return res.status(200).json(posts);
+    } catch (error) {
+      next(error);
+    }
+  },
 };

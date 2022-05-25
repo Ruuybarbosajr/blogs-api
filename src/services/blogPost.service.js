@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
 const { BlogPost, User, Category } = require('../database/models');
 const config = require('../database/config/config');
 const util = require('../utils');
@@ -77,5 +78,22 @@ module.exports = {
     if (post.userId !== user.id) throw util.generateError(401, 'Unauthorized user');
 
     await BlogPost.destroy({ where: { id, userId: user.id } });
+  },
+
+  async search(search) {
+    const posts = await BlogPost.findAll({
+      where: {
+        [Op.or]: [
+          { title: { [Op.like]: `%${search}%` } },
+          { content: { [Op.like]: `%${search}%` } },
+        ],
+      },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+
+    return posts;
   },
 };

@@ -10,7 +10,7 @@ router.post(
 );
 
 router.get('/', middleware.auth.token, controller.blogPost.getAll);
-
+router.get('/search', middleware.auth.token, controller.blogPost.search);
 router.get('/:id', middleware.auth.token, controller.blogPost.getById);
 
 router.put(
